@@ -5,6 +5,12 @@ import { CreatePrinter, getDefaultCreatePrinter } from "@/models/printers/create
 import { newRandomNamePair } from "@/shared/noun-adjectives.data";
 import { IdType } from "@/utils/id.type";
 
+export interface GcodeHistoryEntry {
+  message: string;
+  time: number;
+  type: string;
+}
+
 export class PrintersService extends BaseService {
   static convertPrinterToCreateForm(printer: CreatePrinter) {
     // Inverse transformation
@@ -74,6 +80,28 @@ export class PrintersService extends BaseService {
     const path = ServerApi.printerHomeCommandRoute(printerId);
 
     return await this.post(path, axes);
+  }
+
+  static async sendGcode(printerId: IdType, script: string) {
+    const path = ServerApi.printerSendGcodeRoute(printerId);
+
+    return await this.post(path, { script });
+  }
+
+  static async getGcodeHistory(printerId: IdType, count: number = 100) {
+    const path = `${ServerApi.printerGcodeHistoryRoute(printerId)}?count=${count}`;
+
+    return await this.get<GcodeHistoryEntry[]>(path);
+  }
+
+  static async setExtruderTemperature(printerId: IdType, temperature: number) {
+    // M104 sets extruder temperature without waiting
+    return await this.sendGcode(printerId, `M104 S${temperature}`);
+  }
+
+  static async setBedTemperature(printerId: IdType, temperature: number) {
+    // M140 sets bed temperature without waiting
+    return await this.sendGcode(printerId, `M140 S${temperature}`);
   }
 
   static async createPrinter(printer: CreatePrinter, forceSave: boolean) {

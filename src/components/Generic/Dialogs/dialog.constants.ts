@@ -20,4 +20,6 @@ export enum DialogName {
   CreateUserDialog = "CreateUserDialog",
   // Dialog for managing grid columns, rows, tile size and more (reference to Grid Settings page)
   GridSettingsDialog = "GridSettingsDialog",
+  // Dialog for sending GCode commands and viewing terminal history
+  PrinterTerminalDialog = "PrinterTerminalDialog",
 }

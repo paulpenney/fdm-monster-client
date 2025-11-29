@@ -18,6 +18,7 @@ import { useEventBus } from "@vueuse/core";
 enum IO_MESSAGES {
   LegacyUpdate = "legacy-update",
   TestPrinterState = "test-printer-state",
+  GcodeResponse = "gcode-response",
 }
 
 let appSocketIO: Socket | null = null;
@@ -210,5 +211,16 @@ export class SocketIoService {
     appSocketIO.on(IO_MESSAGES.TestPrinterState, (data) => {
       this.testPrinterStore.saveEvent(data);
     });
+
+    // Register GCode response handler for terminal
+    appSocketIO.on(IO_MESSAGES.GcodeResponse, (data) => {
+      useEventBus<GcodeResponseEvent>("gcode-response").emit(data);
+    });
   }
+}
+
+export interface GcodeResponseEvent {
+  printerId: string | number;
+  message: string;
+  timestamp: number;
 }

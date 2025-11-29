@@ -83,6 +83,10 @@ export class ServerApi {
     `${ServerApi.getPrinterRoute(id)}/serial-connect`;
   static readonly printerJogCommandRoute = (id: IdType) => `${ServerApi.getPrinterRoute(id)}/jog`;
   static readonly printerHomeCommandRoute = (id: IdType) => `${ServerApi.getPrinterRoute(id)}/home`;
+  static readonly printerSendGcodeRoute = (id: IdType) =>
+    `${ServerApi.getPrinterRoute(id)}/send-gcode`;
+  static readonly printerGcodeHistoryRoute = (id: IdType) =>
+    `${ServerApi.getPrinterRoute(id)}/gcode-history`;
   static readonly printerSerialDisconnectRoute = (id: IdType) =>
     `${ServerApi.getPrinterRoute(id)}/serial-disconnect`;
 

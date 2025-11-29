@@ -50,6 +50,19 @@ export interface ConnectionMessageDto {
   }[];
 }
 
+export interface MoonrakerTemperatureData {
+  extruder?: {
+    temperature: number;
+    target: number;
+    power: number;
+  };
+  heater_bed?: {
+    temperature: number;
+    target: number;
+    power: number;
+  };
+}
+
 export interface PrinterStateDto {
   connected: {
     payload?: ConnectionMessageDto;
@@ -63,6 +76,10 @@ export interface PrinterStateDto {
   };
   history: {
     payload: CurrentOrHistoryPayload;
+    receivedAt: number;
+  };
+  notify_status_update?: {
+    payload: MoonrakerTemperatureData;
     receivedAt: number;
   };
 }

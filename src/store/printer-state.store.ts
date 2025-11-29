@@ -1,6 +1,10 @@
 import { defineStore } from "pinia";
 import { PrinterDto } from "@/models/printers/printer.model";
-import { PrinterStateDto, SocketState } from "@/models/socketio-messages/socketio-message.model";
+import {
+  MoonrakerTemperatureData,
+  PrinterStateDto,
+  SocketState,
+} from "@/models/socketio-messages/socketio-message.model";
 import { usePrinterStore } from "./printer.store";
 import { PrinterFileService } from "@/backend";
 import { useSettingsStore } from "./settings.store";
@@ -188,6 +192,15 @@ export const usePrinterStateStore = defineStore("PrinterState", {
         }
       });
       return printingFilesByPrinterId;
+    },
+    // Get temperature data for Moonraker printers
+    printerTemperatureById(): (
+      printerId: IdType
+    ) => MoonrakerTemperatureData | undefined {
+      return (printerId: IdType) => {
+        const printerEvents = this.printerEventsById[printerId];
+        return printerEvents?.notify_status_update?.payload;
+      };
     },
   },
   actions: {

@@ -28,6 +28,7 @@
     <FileExplorerSideNav />
     <BatchReprintDialog />
     <PrinterControlDialog />
+    <PrinterTerminalDialog />
   </v-app>
 </template>
 
@@ -46,6 +47,7 @@ import YamlImportExportDialog from "@/components/Generic/Dialogs/YamlImportExpor
 import FileExplorerSideNav from "@/components/Generic/FileExplorerSideNav.vue";
 import BatchReprintDialog from "@/components/Generic/Dialogs/BatchReprintDialog.vue";
 import PrinterControlDialog from "@/components/Generic/Dialogs/PrinterControlDialog.vue";
+import PrinterTerminalDialog from "@/components/Generic/Dialogs/PrinterTerminalDialog.vue";
 import TopBar from "@/components/TopBar.vue";
 import NavigationDrawer from "@/components/NavigationBar.vue";
 import AppProgressSnackbar from "@/components/Generic/Snackbars/AppProgressSnackbar.vue";
